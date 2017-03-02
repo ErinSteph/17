@@ -76,6 +76,10 @@ as $i => $key){
       think();
       $imagInfo = imgRead($key['attachments'][0]['url']);
       $name = '<@' .  $key['author']['id'] . '>';
+      $remind = $key['content'];
+      $key['content'] = $imagInfo;
+      chatAI($key);
+      $key['content'] = $remind;
       $discord->channel->createMessage([
         'channel.id' => $channel,
         'content' => $name . ' ' . $imagInfo . '!'
