@@ -13,7 +13,7 @@
     if(isRunning() == 'ready'){
       include __DIR__.'/bot.php';
     }
-    sleep(1);
+    usleep(200000);
   }
 
   mysqli_query($sql, "UPDATE logs SET running='ready' WHERE guild_id='$guild' AND channel_id='$channel'");
