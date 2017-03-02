@@ -76,6 +76,38 @@
     $desc = json_decode($result, true)['description']['captions'][0]['text'];
     return $desc;
   }
+  
+  function chatAI($key){
+    global $sql, $channel, $guild, $botID, $linked, $discord;
+    $papiKey = '';
+      $papiSecret = '';
+      if(strpos($key['content'], '<@' . $botID . '>') !== false){
+        $sndCnt = preg_replace('/<@[0-9+]>/', '', $key['content']);
+      }else{
+        $sndCnt = $key['content'];
+      }
+      $mge = array(
+        'message' => array(
+                'message' => $sndCnt,
+                'chatBotID' => 71367,
+                'timestamp' => time()),
+        'user' => array(
+                'firstName' => $key['author']['username'],
+                'externalID' => $key['author']['id'])
+      );
+      $phost = "http://www.personalityforge.com/api/chat/";
+      $messageJSON = json_encode($mge);
+      $hash = hash_hmac('sha256', $messageJSON, $papiSecret);
+      $purl = $phost."?apiKey=".$papiKey."&hash=".$hash."&message=".urlencode($messageJSON);
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $purl);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      $response = curl_exec($ch);
+      curl_close($ch);
+      $responseObject = json_decode($response, true);
+      $reply = str_replace('Laurel', '17' ,$responseObject['message']['message']);
+      return $reply;
+  }
 
   function transfer($from, $too, $amount){
     global $sql;
