@@ -67,6 +67,8 @@ as $i => $key){
     }
  
     echo  $key['author']['username'] . ': ' . $key['content'] .  '<br>';
+    
+    $name = '<@' .  $key['author']['id'] . '>';
 
   /*---------- commands -----------*/
 
@@ -75,43 +77,31 @@ as $i => $key){
     if($key['attachments'][0]){
       think();
       $imagInfo = imgRead($key['attachments'][0]['url']);
-      $name = '<@' .  $key['author']['id'] . '>';
       $remind = $key['content'];
       $key['content'] = $imagInfo;
-      chatAI($key);
+      $reply = chatAI($key);
       $key['content'] = $remind;
-      $discord->channel->createMessage([
-        'channel.id' => $channel,
-        'content' => $name . ' ' . $imagInfo . '!'
-      ]); 
+      say($name . ' ' . $imagInfo . '!');
     }
 
     // BOT MENTIONED
     if(strpos($key['content'], '<@' . $botID . '>') !== false || rand(1,90) == 10){
       think();
-      $name = '<@' .  $key['author']['id'] . '>';
       $reply = chatAI($key);
-      $discord->channel->createMessage([
-        'channel.id' => $channel,
-        'content' => $name . ' ' . $reply
-      ]);
-    } 
+      say($name . ' ' . $reply);
+    }
 
     // on !17
     if(strpos($key['content'], '!17') !== false){
       think();
-      $name = '<@' .  $key['author']['id'] . '>';
-      $discord->channel->createMessage([
-        'channel.id' => $channel, 
-        'content' => "Hi $name!"
-      ]);
+      say("Hi " . $name . "!");
     }
     
     // on !boop
     if(strpos($key['content'], '!boop') !== false){
       $boops = json_decode(file_get_contents('boops.txt'), true);
       think();
-      $name = '<@' .  $key['author']['id'] . '>';
+      if(cockblock($key) === true){
       $cont = '<' . explode("<", $key['content'], 2)[1];
       $boopee =  explode(">", $cont, 2)[0] . '>';
       if($boops[$name]){
@@ -136,37 +126,31 @@ as $i => $key){
         $msgend = " That's " . $booped . " times now!";
       }
       $msg = $name . " booped " . $cont . "!" . $msgend;
-      $discord->channel->createMessage([
-        'channel.id' => $channel,
-        'content' => "$msg"
-      ]);
+      say($msg);
+      }
     }
 
     // on !bal
     if(strpos($key['content'], '!bal') !== false){
       think();
-      $name = '<@' .  $key['author']['id'] . '>';
-      $discord->channel->createMessage([
-        'channel.id' => $channel,
-        'content' => $name . ", your balance is <:coin:284693468511469569>" . $key['bal'] . "."
-      ]);
+      if(cockblock($key) === true){
+        say($name .  ", your balance is <:coin:284693468511469569>" . $key['bal'] . ".");
+      }
     }
 
     // on !send
     if(strpos($key['content'], '!send') !== false){
       think();
-      $name = '<@' .  $key['author']['id'] . '>';
-      $amnt = intval(explode(' ', 
-        explode('send ', $key['content'])[1]
-      )[0]);
-      $too = explode('>', 
-        explode('<@', $key['content'])[1]
-      )[0];
-      $out = transfer($key['author']['id'], $too, $amnt);
-      $discord->channel->createMessage([
-        'channel.id' => $channel,
-        'content' => $name . " " . $out
-      ]);
+      if(cockblock($key) === true){
+        $amnt = intval(explode(' ',
+          explode('send ', $key['content'])[1]
+        )[0]);
+        $too = explode('>',
+          explode('<@', $key['content'])[1]
+        )[0];
+        $out = transfer($key['author']['id'], $too, $amnt);
+        say($name . ' ' . $out);
+      }
     }
 
 

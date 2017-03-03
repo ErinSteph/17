@@ -162,5 +162,26 @@
       'channel.id' => $channel
     ]);
   }
+  
+  function say($msg){
+    global $discord, $channel;
+    $discord->channel->createMessage([
+      'channel.id' => $channel,
+      'content' => $msg
+    ]);
+  }
+
+  function cockblock($msg){
+    $name = '<@' .  $msg['author']['id'] . '>';
+    $msg['content'] = 'say balance fart';
+    $ai = chatAI($msg);
+    if(strpos($ai, 'balance fart') === false){
+      say($name . ' ' .$ai);
+      return false;
+    }else{
+      return true;
+    }
+  }
+
 
 ?>
