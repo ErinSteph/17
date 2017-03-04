@@ -14,6 +14,7 @@ Run ~$ php composer require restcord/restcord
 Run ~$ php composer require textalk/websocket
 Upload or clone the php files to the web root
 Fill out user settings in config.php
+Create a file in the web root called boops.txt with 0777 permissions
 Run ~$ crontab -e
 Add a line: ~$ * * * * * curl http://your_site_or.ip/botwrapper.php
 
