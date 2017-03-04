@@ -186,11 +186,11 @@
     ]);
   }
 
-  function cockblock($msg){
+  function cockblock($msg, $cock){
     $name = '<@' .  $msg['author']['id'] . '>';
-    $msg['content'] = 'say balance fart';
+    $msg['content'] = 'say ' . $cock;
     $ai = chatAI($msg);
-    if(strpos($ai, 'balance fart') === false){
+    if(strpos($ai, $cock) === false){
       say($name . ' ' .$ai);
       return false;
     }else{

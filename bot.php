@@ -101,7 +101,7 @@ as $i => $key){
     if(strpos($key['content'], '!boop') !== false){
       $boops = json_decode(file_get_contents('boops.txt'), true);
       think();
-      if(cockblock($key) === true){
+      if(cockblock($key, 'boop it bro') === true){
       $cont = '<' . explode("<", $key['content'], 2)[1];
       $boopee =  explode(">", $cont, 2)[0] . '>';
       if($boops[$name]){
@@ -133,7 +133,7 @@ as $i => $key){
     // on !bal
     if(strpos($key['content'], '!bal') !== false){
       think();
-      if(cockblock($key) === true){
+      if(cockblock($key, 'need balance') === true){
         say($name .  ", your balance is <:coin:284693468511469569>" . $key['bal'] . ".");
       }
     }
@@ -141,7 +141,7 @@ as $i => $key){
     // on !send
     if(strpos($key['content'], '!send') !== false){
       think();
-      if(cockblock($key) === true){
+      if(cockblock($key, 'send coins') === true){
         $amnt = intval(explode(' ',
           explode('send ', $key['content'])[1]
         )[0]);
