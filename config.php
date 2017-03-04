@@ -9,11 +9,15 @@
 
   $db = array();
 
-  $db['seed'] = '';
-  $db['host'] = 'localhost';
-  $db['user'] = '';
-  $db['pass'] = '';
-  $db['name'] = '';
+  $db['seed'] = ''; // 30+ random characters
+  $db['host'] = 'localhost'; // database host
+  $db['user'] = ''; // database username
+  $db['pass'] = ''; // database password 
+  $db['name'] = ''; //database name
+  $db['botID'] = ''; // ID number of the chosen bot from PersonalityForge.com
+  $db['chatkey'] = ''; // PersonalityForge.com API key
+  $db['chatsecret'] = ''; // PersonalityForge.com API secret
+  $db['imagekey'] = ''; // Microsoft Cognitive Services Computer Vision API key
 
   $sql = mysqli_connect($db['host'],$db['user'],$db['pass'],$db['name']);
   if(!$sql){
@@ -64,10 +68,11 @@
   function safeHash($input){ global $db; return hash('sha256', $db['seed'] . $input . $db['seed']); }
 
   function imgRead($url){
+    global $db;
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Description");
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Ocp-Apim-Subscription-Key: '));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Ocp-Apim-Subscription-Key: ' . $db['imagekey']));
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
       'url' => $url
     ), true));
@@ -78,9 +83,7 @@
   }
   
   function chatAI($key){
-    global $sql, $channel, $guild, $botID, $linked, $discord;
-    $papiKey = '';
-      $papiSecret = '';
+    global $db, $sql, $channel, $guild, $botID, $linked, $discord;
       if(strpos($key['content'], '<@' . $botID . '>') !== false){
         $sndCnt = preg_replace('/<@[0-9+]>/', '', $key['content']);
       }else{
@@ -89,7 +92,7 @@
       $mge = array(
         'message' => array(
                 'message' => $sndCnt,
-                'chatBotID' => 71367,
+                'chatBotID' => $db['botID'],
                 'timestamp' => time()),
         'user' => array(
                 'firstName' => $key['author']['username'],
@@ -97,8 +100,8 @@
       );
       $phost = "http://www.personalityforge.com/api/chat/";
       $messageJSON = json_encode($mge);
-      $hash = hash_hmac('sha256', $messageJSON, $papiSecret);
-      $purl = $phost."?apiKey=".$papiKey."&hash=".$hash."&message=".urlencode($messageJSON);
+      $hash = hash_hmac('sha256', $messageJSON, $db['chatsecret']);
+      $purl = $phost."?apiKey=".$db['chatkey']."&hash=".$hash."&message=".urlencode($messageJSON);
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $purl);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
