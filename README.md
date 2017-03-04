@@ -7,16 +7,16 @@ Installing this is getting kind of doable now.
 
 It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
 
-Install apache2, mysql, phpmyadmin, curl, etc.
-Import database schema in phpmyadmin
-Install php composer
-Run ~$ php composer require restcord/restcord
-Run ~$ php composer require textalk/websocket
-Upload or clone the php files to the web root
-Fill out user settings in config.php
-Create a file in the web root called boops.txt with 0777 permissions
-Run ~$ crontab -e
-Add a line: ~$ * * * * * curl http://your_site_or.ip/botwrapper.php
+1. Install apache2, mysql, phpmyadmin, curl, etc.
+2. Import database schema in phpmyadmin
+3. Install php composer
+4. Run ~$ php composer require restcord/restcord
+5. Run ~$ php composer require textalk/websocket
+6. Upload or clone the php files to the web root
+7. Fill out user settings in config.php
+8. Create a file in the web root called boops.txt with 0777 permissions
+9. Run ~$ crontab -e
+10. Add a line: ~$ * * * * * curl http://your_site_or.ip/botwrapper.php
 
 And the bot should now be running.
 
