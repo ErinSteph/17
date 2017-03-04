@@ -8,6 +8,12 @@
   use RestCord\DiscordClient;
 
   $db = array();
+  
+  /*------------------------------------------------------//
+                       USER SETTINGS
+                These are your user settings. 
+       You need to fill these out for the bot to work.
+  //------------------------------------------------------*/
 
   $db['seed'] = ''; // 30+ random characters
   $db['host'] = 'localhost'; // database host
@@ -19,20 +25,26 @@
   $db['chatsecret'] = ''; // PersonalityForge.com API secret
   $db['imagekey'] = ''; // Microsoft Cognitive Services Computer Vision API key
 
+  $botID = ; // the numeric user ID of your discord bot
+  $guild = ; // the numeric id of your discord server
+  $channel = ; // the numeric id of the channel you want the bot in
+  $token = ''; // your discord API token
+  
+  /*------------------------------------------------------//
+                       IMPORTANT STUFF
+      Unless you're 1337 and you know what you're doing,
+          you shouldn't mess with stuff under here.
+  //------------------------------------------------------*/
+  
+  $linked = '<@' . $botID . '>';
   $sql = mysqli_connect($db['host'],$db['user'],$db['pass'],$db['name']);
   if(!$sql){
     die("Connection failed: " . mysqli_connect_error());
   }
+  $discord = new DiscordClient(['token' => $token]);
+   
 
-  $botID = ;
-  $linked = '';
-
-  $channel = ;
-  $guild = ;
-
-  $discord = new DiscordClient(['token' => '']);
-
-  global $sql, $channel, $guild, $botID, $linked, $discord;
+  global $sql, $channel, $guild, $botID, $linked, $discord, $token;
 
   // Core funcs
 
