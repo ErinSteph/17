@@ -19,7 +19,7 @@
   $db['host'] = 'localhost'; // database host
   $db['user'] = ''; // database username
   $db['pass'] = ''; // database password 
-  $db['name'] = ''; //database name
+  $db['name'] = '17'; //database name
   $db['botID'] = ''; // ID number of the chosen bot from PersonalityForge.com
   $db['chatkey'] = ''; // PersonalityForge.com API key
   $db['chatsecret'] = ''; // PersonalityForge.com API secret
