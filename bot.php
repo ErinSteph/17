@@ -16,7 +16,7 @@ if(mysqli_num_rows($checkSql) > 0) {
         $last = intval($row["last"]);
     }
 }else{
-  mysqli_query($sql,"INSERT INTO logs (channel_id,guild_id,data,heartbeat) VALUES ('" . $channel . "','" . $guild . "','[]', '" . (intval(time()) + 100) . "')");
+  mysqli_query($sql,"INSERT INTO logs (channel_id,guild_id,data,heartbeat,last) VALUES ('" . $channel . "','" . $guild . "','[]', '" . (intval(time()) + 100) . "', '" . getChannelLast() . "')");
 
 }
 

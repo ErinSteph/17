@@ -225,6 +225,12 @@ function chatAI($key){
       return say($name . ' bet could not be placed.');
     }
   }
+  
+  function getChannelLast(){
+    global $db, $sql, $channel, $guild, $botID, $linked, $discord, $token;
+    $info = $discord->channel->getChannel(["channel.id" => $channel]);
+    return $info["last_message_id"]; 
+  }
 
 
 ?>
