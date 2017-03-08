@@ -29,8 +29,8 @@
   $adminIDs = array('132842449314906112','134257129472131072','134257263799042048','132734287039430656');  
 
   $botID = ; // the numeric user ID of your discord bot
-  $channel = ; // the numeric id of your discord server
-  $guild = ; // the numeric id of the channel you want the bot in
+  $channel = ; // the numeric id of the channel the bot should be active in
+  $guild = ; // the numeric id of your discord server (channel id for #general should be same as this)
   $token = ''; // your discord API token
 
   /*------------------------------------------------------//
