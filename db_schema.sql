@@ -3,13 +3,11 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `17` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `17`;
 
-DROP TABLE IF EXISTS `balance`;
 CREATE TABLE IF NOT EXISTS `balance` (
   `id` varchar(100) DEFAULT NULL,
   `bal` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `bets`;
 CREATE TABLE IF NOT EXISTS `bets` (
   `guild` varchar(100) DEFAULT NULL,
   `channel` varchar(100) DEFAULT NULL,
@@ -21,7 +19,6 @@ CREATE TABLE IF NOT EXISTS `bets` (
 `no` int(20) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `guild_id` varchar(100) DEFAULT NULL,
   `channel_id` varchar(100) DEFAULT NULL,
