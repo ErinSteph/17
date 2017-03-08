@@ -212,17 +212,13 @@ function chatAI($key){
     $name = '<@' .  $msg['author']['id'] . '>';
     $odds = json_decode(file_get_contents('odds.txt'), true);
     if(strpos($take, 'sent') !== false && isset($odds[$fix])){     
-      if(strpos($msg['content'], 'home') !== false){
-      
+      if(strpos($msg['content'], 'home') !== false){  
         mysqli_query($sql,"INSERT INTO bets (guild,channel,user,fixture,team,odds,amount) VALUES 
-        ('" . $guild . "','" . $channel . "','" . intval($msg['author']['id'])  . "','" . $fix . "','home','" . $odds[$fix]['homeodds'] . "','" . $amount . "')");
-        
+        ('" . $guild . "','" . $channel . "','" . intval($msg['author']['id'])  . "','" . $fix . "','home','" . $odds[$fix]['homeodds'] . "','" . $amount . "')");   
         say($name . ' bet placed: <:coin:284693468511469569>' . $amount  . ' on ' . $odds[$fix]['hometeam'] . ' to beat ' . $odds[$fix]['awayteam'] . ' @ ' . $odds[$fix]['homeodds'] . ' at ' . $odds[$fix]['time'] . ' to win <:coin:284693468511469569>' . intval( ($amount * $odds[$fix]['homeodds']) ) );
-      }else{
-      
+      }else{      
         mysqli_query($sql,"INSERT INTO bets (guild,channel,user,fixture,team,odds,amount) VALUES 
-        ('" . $guild . "','" . $channel . "','" . intval($msg['author']['id'])  . "','" . $fix . "','away','" . $odds[$fix]['awayodds'] . "','" . $amount . "')");      
-        
+        ('" . $guild . "','" . $channel . "','" . intval($msg['author']['id'])  . "','" . $fix . "','away','" . $odds[$fix]['awayodds'] . "','" . $amount . "')");              
         say($name . ' bet placed: <:coin:284693468511469569>' . $amount  . ' on ' . $odds[$fix]['awayteam'] . ' to beat ' . $odds[$fix]['hometeam'] . ' @ ' . $odds[$fix]['awayodds'] . ' at ' . $odds[$fix]['time'] . ' to win <:coin:284693468511469569>' . intval( ($amount * $odds[$fix]['awayodds']) ));
       }
     }else{
