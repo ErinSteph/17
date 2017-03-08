@@ -15,8 +15,8 @@ It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
 6. Upload or clone the php files to the web root
 7. Fill out user settings in config.php
 9. Run ~$ crontab -e and add these lines: 
-  1. `* * * * * curl http://your_site_or.ip/botwrapper.php`
-  2. `* * * * * curl http://your_site_or.ip/events.php`
+  * `* * * * * curl http://your_site_or.ip/botwrapper.php`
+  * `* * * * * curl http://your_site_or.ip/events.php`
 
 And the bot should now be running.
 
