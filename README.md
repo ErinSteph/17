@@ -14,9 +14,8 @@ It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
 5. Run ~$ php composer require textalk/websocket
 6. Upload or clone the php files to the web root
 7. Fill out user settings in config.php
-8. Create a file in the web root called boops.txt with 0777 permissions
-9. Run ~$ crontab -e
-10. Add a line: ~$ * * * * * curl http://your_site_or.ip/botwrapper.php
-
+9. Run ~$ crontab -e and add these lines:
+9.1. ~$ * * * * * curl http://your_site_or.ip/botwrapper.php
+9.2. ~$ * * * * * curl http://your_site_or.ip/events.php
 And the bot should now be running.
 
