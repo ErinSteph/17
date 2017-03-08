@@ -10,12 +10,10 @@ It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
 1. Install apache2, mysql, phpmyadmin, curl, etc.
 2. Import database schema in phpmyadmin
 3. Install php composer
-4. Run ~$ php composer require restcord/restcord
-5. Run ~$ php composer require textalk/websocket
+4. Run `php composer require restcord/restcord`
+5. Run `php composer require textalk/websocket`
 6. Upload or clone the php files to the web root
 7. Fill out user settings in config.php
-9. Run ~$ crontab -e and add these lines:
-9. ~$ * * * * * curl http://your_site_or.ip/botwrapper.php
-9. ~$ * * * * * curl http://your_site_or.ip/events.php
+9. Run ~$ crontab -e and add these lines: `* * * * * curl http://your_site_or.ip/botwrapper.php` and `* * * * * curl http://your_site_or.ip/events.php`
 And the bot should now be running.
 
