@@ -67,9 +67,10 @@ as $i => $key){
     }
  
     echo  $key['author']['username'] . ': ' . $key['content'] .  '<br>';
-    
-    $name = '<@' .  $key['author']['id'] . '>';
 
+    $name = '<@' .  $key['author']['id'] . '>';
+    $isAdmin = false;
+    if(in_array($key['author']['id'], $adminIDs) === true) $isAdmin = true;
   /*---------- commands -----------*/
 
 
@@ -86,10 +87,10 @@ as $i => $key){
 
     // BOT MENTIONED
     if(strpos($key['content'], '<@' . $botID . '>') !== false || rand(1,90) == 10){
-      think();
+      think(); 
       $reply = chatAI($key);
       say($name . ' ' . $reply);
-    }
+    } 
 
     // on !17
     if(strpos($key['content'], '!17') !== false){
@@ -129,11 +130,11 @@ as $i => $key){
       say($msg);
       }
     }
-
+  
     // on !bal
     if(strpos($key['content'], '!bal') !== false){
       think();
-      if(cockblock($key, 'need balance') === true){
+      if(cockblock($key, 'need balance') === true){          
         say($name .  ", your balance is <:coin:284693468511469569>" . $key['bal'] . ".");
       }
     }
@@ -142,14 +143,53 @@ as $i => $key){
     if(strpos($key['content'], '!send') !== false){
       think();
       if(cockblock($key, 'send coins') === true){
-        $amnt = intval(explode(' ',
+        $amnt = intval(explode(' ', 
           explode('send ', $key['content'])[1]
         )[0]);
-        $too = explode('>',
+        $too = explode('>', 
           explode('<@', $key['content'])[1]
         )[0];
         $out = transfer($key['author']['id'], $too, $amnt);
         say($name . ' ' . $out);
+      }
+    }
+
+    // on !odds
+    if(strpos($key['content'], '!odds') !== false){
+      think();
+      if(cockblock($key, 'get odds') === true){
+        $odds = json_decode(file_get_contents('odds.txt'), true);
+        $datas = '';
+        $ni = 10;
+        foreach($odds as $i){
+          if($ni > 0){
+            $ni--;
+            $datas .= $i['time'] . ' - Fixture **' . $i["id"] . '** - **Home:** ' . $i["hometeam"] . ' @ **' . $i['homeodds'] . '** / **Away:** ' . $i["awayteam"] . ' @ **' . $i['awayodds'] . '**' . PHP_EOL;
+          }
+        }
+        say('**Next 10 Matches:**' . PHP_EOL . '*!bet 10 1349627 home*' . PHP_EOL .  $datas);
+      }
+    }
+    
+    // on !bet
+    if(strpos($key['content'], '!bet') !== false){
+      think();
+      if(cockblock($key, 'place bet') === true){
+        $amount = explode('!bet ', $key['content'])[1];
+        $bits = explode(' ', $amount);
+        $amount = intval($bits[0]);
+        $fix = intval($bits[1]);
+        bet($key, $fix, $amount);
+      }
+    }
+
+    // on !priv
+    if(strpos($key['content'], '!priv') !== false){
+      think();
+      if($isAdmin === true){
+        say($name . ', you have Admin privilege.');       
+      }else{
+        say($name . ', you have User privilege.');
       }
     }
 
