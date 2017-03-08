@@ -17,6 +17,7 @@ It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
   * [Personality Forge](http://www.personalityforge.com/)
   * [Microsoft Cognitive Services (Computer Vision API key)](https://www.microsoft.com/cognitive-services/en-us/sign-up)
   * [Mashape](https://market.mashape.com/)
+  * [Discord](https://discordapp.com/developers/applications/me)
 9. Run `crontab -e` and add these lines: 
   * `* * * * * curl http://your_site_or.ip/botwrapper.php`
   * `* * * * * curl http://your_site_or.ip/events.php`
