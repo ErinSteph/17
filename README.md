@@ -13,9 +13,9 @@ It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
 4. Run `php composer require restcord/restcord`
 5. Run `php composer require textalk/websocket`
 6. Upload or clone the php files to the web root
-7. Fill out user settings in config.php, including (free) keys from:
+7. Fill out user settings in config.php, including (free) API keys from:
   * [Personality Forge](http://www.personalityforge.com/)
-  * [Microsoft Cognitive Services Computer Vision](https://www.microsoft.com/cognitive-services/en-us/sign-up)
+  * [Microsoft Cognitive Services (Computer Vision API key)](https://www.microsoft.com/cognitive-services/en-us/sign-up)
   * [Mashape](https://market.mashape.com/)
 9. Run `crontab -e` and add these lines: 
   * `* * * * * curl http://your_site_or.ip/botwrapper.php`
