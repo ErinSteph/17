@@ -1,8 +1,4 @@
 # 17
-~~I do not expect anybody to be able to install and run this, it's just for people who were asking to see the source.~~
-
-~~If you REALLY REALLY wanna run it, [ask](https://discord.gg/MpUB5Hp), so I can probably not help you.~~
-
 Installing this is getting kind of doable now.
 
 It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
@@ -23,4 +19,6 @@ It's written to be run in Apache with Cron Jobs, so quickly how to set that up:
   * `* * * * * curl http://your_site_or.ip/events.php`
 
 And the bot should now be running.
+
+If you need help, [ask](https://discord.gg/MpUB5Hp).
 
