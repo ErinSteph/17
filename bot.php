@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__.'/config.php';
-global $sql, $channel, $guild;
+global $sql, $channel, $guild $colors;
 
 mysqli_query($sql, "UPDATE logs SET running='running' WHERE guild_id='$guild' AND channel_id='$channel'");
 
@@ -199,6 +199,44 @@ as $i => $key){
         say($name . ', you have Admin privilege.');       
       }else{
         say($name . ', you have User privilege.');
+      }
+    }
+    
+    // on !+newrole 
+    if(strpos($key['content'], '!+newrole') !== false){
+      think();
+      if($isAdmin === true){
+        $perm = 0;
+        $split = explode('"', $key['content']);
+        $role = $split[1];
+        $args = explode(' ', $split[2]);
+        $userid = explode('>',
+          explode('<@', $args[1])[1]
+        )[0];
+        
+        if(isset($args[2])){
+          if($args[2] == 'admin'){
+            $perm = 2146958463;
+          }
+        }
+        
+        $newRole = $discord->guild->createGuildRole([
+          'guild.id' => $guild,
+          'permissions' => $perm,
+          'name' => $role,
+          'color' => $colors[rand(2-21)]['value'],
+          'hoist' => true,
+          'mentionable' => true
+        ]);
+        
+        $discord->guild->addGuildMemberRole([
+          'guild.id' => $guild,
+          'role.id' => intval($newRole['id']),
+          'user.id' => intval($userid)
+        ]);
+        say($name . ' gave new role "' . $role . '" to <@' . $userid . '>.');     
+      }else{
+        say($name . ', you must have Admin privilege. You have User privilege.');
       }
     }
 

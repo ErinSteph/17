@@ -41,6 +41,30 @@
           you shouldn't mess with stuff under here.
   //------------------------------------------------------*/
   
+  $colors = array(
+    1 => array("name" => "DEFAULT", "value" => 0),
+    2 => array("name" => "AQUA", "value" => 1752220),
+    3 => array("name" => "GREEN", "value" => 3066993),
+    4 => array("name" => "BLUE", "value" => 3447003),
+    5 => array("name" => "PURPLE", "value" => 10181046),
+    6 => array("name" => "GOLD", "value" => 15844367),
+    7 => array("name" => "ORANGE", "value" => 15105570),
+    8 => array("name" => "RED", "value" => 15158332),
+    9 => array("name" => "GREY", "value" => 9807270),
+    10 => array("name" => "DARKER_GREY", "value" => 8359053),
+    11 => array("name" => "NAVY", "value" => 3426654),
+    12 => array("name" => "DARK_AQUA", "value" => 1146986),
+    13 => array("name" => "DARK_GREEN", "value" => 2067276),
+    14 => array("name" => "DARK_BLUE", "value" => 2123412),
+    15 => array("name" => "DARK_PURPLE", "value" => 7419530),
+    16 => array("name" => "DARK_GOLD", "value" => 12745742),
+    17 => array("name" => "DARK_ORANGE", "value" => 11027200),
+    18 => array("name" => "DARK_RED", "value" => 10038562),
+    19 => array("name" => "DARK_GREY", "value" => 9936031),
+    20 => array("name" => "LIGHT_GREY", "value" => 12370112),
+    21 => array("name" => "DARK_NAVY", "value" => 2899536)
+  );
+  
   $linked = '<@' . $botID . '>'; 
   $sql = mysqli_connect($db['host'],$db['user'],$db['pass'],$db['name']);
   if(!$sql){
@@ -48,7 +72,7 @@
   }
   $discord = new DiscordClient(['token' => $token]);
 
-  global $db, $sql, $channel, $guild, $botID, $adminIDs, $linked, $discord, $token, $nowplaying;
+  global $db, $sql, $channel, $guild, $botID, $adminIDs, $linked, $discord, $token, $nowplaying, $colors;
 
   // Core funcs
    
