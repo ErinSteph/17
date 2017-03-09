@@ -16,7 +16,8 @@ if(mysqli_num_rows($checkSql) > 0) {
         $last = intval($row["last"]);
     }
 }else{
-  mysqli_query($sql,"INSERT INTO logs (channel_id,guild_id,data,heartbeat,last) VALUES ('" . $channel . "','" . $guild . "','[]', '" . (intval(time()) + 100) . "', '" . getChannelLast() . "')");
+  mysqli_query($sql,"INSERT INTO logs (channel_id,guild_id,data,heartbeat,last) 
+  VALUES ('" . $channel . "','" . $guild . "','[]', '" . (intval(time()) + 100) . "', '" . getChannelLast() . "')");
 
 }
 
@@ -164,10 +165,18 @@ as $i => $key){
         foreach($odds as $i){
           if($ni > 0){
             $ni--;
-            $datas .= $i['time'] . ' - Fixture **' . $i["id"] . '** - **Home:** ' . $i["hometeam"] . ' @ **' . $i['homeodds'] . '** / **Away:** ' . $i["awayteam"] . ' @ **' . $i['awayodds'] . '**' . PHP_EOL;
+            $datas .= $i['time'] 
+              . ' - Fixture **' . $i["id"] 
+              . '** - **Home:** ' . $i["hometeam"] . ' @ **' . $i['homeodds'] 
+              . '** / **Away:** ' . $i["awayteam"] . ' @ **' . $i['awayodds'] . '**' 
+              . PHP_EOL
+            ;
           }
         }
-        say('**Next 10 Matches:**' . PHP_EOL . '*!bet 10 1349627 home*' . PHP_EOL .  $datas);
+        say('**Next 10 Matches:**' . PHP_EOL . PHP_EOL 
+          . $datas . PHP_EOL . PHP_EOL 
+          . 'Betting command usage: *!bet 10 1349627 home*'
+        );
       }
     }
     
